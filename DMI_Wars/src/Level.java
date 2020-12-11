@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Level {
 	//constants
@@ -21,6 +22,13 @@ public class Level {
 	int xB;
 	int yB;
 	
+	
+	int contarP=0;
+	////////
+	PImage nivel1;
+	
+	
+	
 	int numLevel;
 	//relations
 		Enemy[] enemies;
@@ -31,21 +39,88 @@ public class Level {
 		this.numLevel = numLevel;
 		enemies=new Enemy[4];
 		levelMap =new MapZone(0,0,app);
-		player1= new Player(0,0,levelMap);
+		player1= new Player(6,1,levelMap);
 		//esti no va aqui
-		enemies[0]=new Enemy(7,7, levelMap);
-		enemies[1]=new Enemy(10,4, levelMap);
-		enemies[2]=new Enemy(4,10, levelMap);
-		enemies[3]=new Enemy(4,2, levelMap);
+		enemies[0]=new Enemy(7,7, levelMap, app);
+		enemies[1]=new Enemy(10,4, levelMap, app);
+		enemies[2]=new Enemy(4,10, levelMap, app);
+		enemies[3]=new Enemy(4,2, levelMap, app);
+		nivel1 = app.loadImage("Nivel 1.png");
+		//setObstacles
+		
+		
 	}
 	
 	
 	public void pintarNivel(PApplet app) {
 		switch(numLevel) {
 		case 1:
+			//Set cosos
+			levelMap.getTile(5,6).setType(1);
+			levelMap.getTile(2,0).setType(1);
+			levelMap.getTile(1,2).setType(1);
+			levelMap.getTile(5,0).setType(1);
+			levelMap.getTile(6,0).setType(1);
+			levelMap.getTile(7,0).setType(1);
+			levelMap.getTile(5,1).setType(1);
+			levelMap.getTile(6,1).setType(1);
+			levelMap.getTile(7,1).setType(1);
 			
-			levelMap.pintar(app);
+			levelMap.getTile(8,1).setType(1);
+			levelMap.getTile(10,2).setType(1);
+			levelMap.getTile(4,3).setType(1);
+			levelMap.getTile(0,4).setType(1);
+			levelMap.getTile(1,4).setType(1);
+			levelMap.getTile(2,4).setType(1);
+			levelMap.getTile(0,5).setType(1);
+			levelMap.getTile(1,5).setType(1);
+			levelMap.getTile(2,5).setType(1);
+			
+			levelMap.getTile(0,8).setType(1);
+			levelMap.getTile(6,8).setType(1);
+			levelMap.getTile(8,4).setType(1);
+			
+			levelMap.getTile(8,6).setType(1);
+			levelMap.getTile(9,6).setType(1);
+			levelMap.getTile(10,6).setType(1);
+			levelMap.getTile(9,9).setType(1);
+			levelMap.getTile(13,7).setType(1);
+			levelMap.getTile(14,9).setType(1);
+			levelMap.getTile(14,9).setType(1);
+			levelMap.getTile(17,10).setType(1);
+			levelMap.getTile(20,8).setType(1);
+			levelMap.getTile(19,7).setType(1);
+			levelMap.getTile(12,10).setType(1);
+			levelMap.getTile(14,5).setType(1);
+			levelMap.getTile(18,0).setType(1);
+			levelMap.getTile(16,3).setType(1);
+			
+			
+			
+			System.out.println("ROW: "+player1.getRow()+"   COL:"+player1.getCol());
+			
+			
+			contarP++;
+			if(contarP>300) {
+				contarP=0;
+			}
+			app.image(nivel1,600, 325);	
+			
+						
+				for (int i = 0; i < enemies.length; i++) {
+					enemies[i].disparos();
+					//enemies[i].mover((int) random(1,4));
+					if(contarP%20==0) {
+					enemies[i].mover(( int )(Math.random()*4+1));
+					}
+			}
+			//levelMap.pintar(app);
+			
 			player1.pintar(app);
+			
+			
+			
+			
 			app.noStroke();
 			app.fill(60);
 			app.rect(600,625,1200,50);
@@ -141,6 +216,12 @@ public class Level {
 		
 	}//end pintarNivel
 	
+	private int random(int i, int j) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 	public boolean getVictory() {
 		return victory;
 	}	

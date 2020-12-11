@@ -33,13 +33,7 @@ public class MapZone {
 			}
 			y+=50;
 		}
-		
-		tileSet[5][6].setType(1);
-		tileSet[5][9].setType(2);
-		
-
-
-
+	
 		
 	}//end mapZone
 	
@@ -88,6 +82,13 @@ public class MapZone {
 		
 	}
 	
+	public Tile[][] getTiles() {
+		return tileSet;
+	}
+	
+	public Tile getTile(int row, int col) {
+		return tileSet[row][col];
+	}
 
 	
 }

@@ -14,8 +14,8 @@ public class Player {
 	public Player(int row, int col, MapZone refMap) {
 		this.row=row;
 		this.col=col;
-		xP=75+(50*row);
-		yP=75+(50*col);
+		yP=75+(50*row);
+		xP=75+(50*col);
 		//actualTile=tile;
 		this.refMap=refMap;
 		mainBomb=new Bomb(row,col, xP, yP, refMap);

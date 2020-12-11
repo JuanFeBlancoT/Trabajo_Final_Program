@@ -20,6 +20,9 @@ public class Main extends PApplet{
 	int levelType=1;
 	
 	boolean canMove=true;
+	
+	//imagenes
+	PImage nivel1;
 	//relations
 	Level[] levels;
 	
@@ -28,6 +31,7 @@ public class Main extends PApplet{
 	}
 	
 	public void setup() {
+		nivel1 = loadImage("Nivel 1.png");
 		
 		levels=new Level[10];
 		
@@ -54,7 +58,9 @@ public class Main extends PApplet{
 		switch(levelNum) {
 		
 		case 1:
+			
 			levels[0].pintarNivel(this);
+		
 			break;
 		case 2:
 			levels[1].pintarNivel(this);
