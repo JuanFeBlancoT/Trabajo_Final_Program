@@ -94,7 +94,7 @@ public class Player {
 			break;
 		case 3:
 			
-			if(row!=11) {
+			if(row!=10) {
 				typeT=refMap.getTileType(row+1,col);
 				
 				if(typeT==0) {

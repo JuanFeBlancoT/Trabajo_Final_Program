@@ -49,6 +49,7 @@ public class MapZone {
 		for (int i = 0; i < TILE_W; i++) {
 			for (int j = 0; j < TILE_H; j++) {
 				tileSet[i][j].pintar(app);
+				
 			
 			}
 			
@@ -118,7 +119,10 @@ public class MapZone {
 
 	
 	public void setType(int row, int column) {
-		tileSet[row][column].setType(0);
+		if(row>0 || column>0 || row<TILE_H || column<TILE_W) {
+			tileSet[row][column].setType(0);
+		}
+		
 	}
 	
 

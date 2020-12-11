@@ -10,7 +10,7 @@ public class Main extends PApplet{
 	
 	//Constants
 	final int WIDTH=1200;
-	final int HEIGHT=700;
+	final int HEIGHT=650;
 	final int ENEMIES=4;
 	//Atributes
 	boolean moved=false;
@@ -38,6 +38,7 @@ public class Main extends PApplet{
 	}
 	
 	public void setup() {
+		
 		mainMap= new MapZone(0,0, this);
 		player1= new Player(0,0, mainMap);
 		enemies=new Enemy[ENEMIES];
@@ -55,11 +56,15 @@ public class Main extends PApplet{
 
 	public void draw() {
 		background(60);
+		
 		rectMode(CENTER);
 		
 		mainMap.pintar(this);
 		player1.pintar(this);
-		
+		noStroke();
+		fill(60);
+		rect(600,625,1200,50);
+		stroke(1);
 		timer++;
 	
 		for (int i = 0; i < enemies.length; i++) {
@@ -71,12 +76,8 @@ public class Main extends PApplet{
 			
 			enemies[i].pintar(this);
 			//************************************************************************
-			enemies[i].mover(direct[i]);
-			/*if(moved==false) {
-				moved=enemies[i].mover(direct[i]);
-				
-			}
-			
+			//enemies[i].mover(direct[i]);
+			/*			
 			if( enemies[i].getVisible() && enemies[i].getX()==player1.getX() && enemies[i].getY()==player1.getY() ) {
 				
 					player1.reduceLife();
@@ -212,6 +213,8 @@ public class Main extends PApplet{
 				if(paintBomb==false) {
 					xB=player1.mainBomb.getRow();
 					yB=player1.mainBomb.getCol();
+					System.out.println(xB);
+					System.out.println(yB);
 					paintBomb=true;
 				}
 			

@@ -9,8 +9,8 @@ public class Bomb {
 	public Bomb(int row, int col, int xP, int yP, MapZone mapRef) {
 		this.row=row;
 		this.col=col;
-		x=75+row*50;
-		y=75+col*50;
+		y=75+row*50;
+		x=75+col*50;
 		this.xP=xP;
 		this.yP=yP;
 		tam=20;
@@ -40,28 +40,24 @@ public class Bomb {
 		app.circle(75+50*yP, 75+50*xP, tam);
 	}
 	
-	public void explote(int row, int col) {
+	public void explote(int col, int row) {
 		
 		
-			if(col>0 && mapRef.getTileType(row, col-1)!=1) {
+			if(col>0 && mapRef.getTileType(col-1, row)!=1) {
 				mapRef.setType(row, col-1);
-				
 			}
-			if(col<13 && mapRef.getTileType(row, col+1)!=1) {
+			
+			if(col<21 && mapRef.getTileType(col+1, row)!=1) {
 				mapRef.setType(row, col+1);
 			}
-			if(row>0 && mapRef.getTileType(row-1, col)!=1) {
+			
+			if(row>0 && mapRef.getTileType(col, row-1)!=1) {
 				mapRef.setType(row-1, col);
 			}
 			
-			if(row<13 && mapRef.getTileType(row+1, col)!=1) {
+			if(row<11 && mapRef.getTileType(col, row+1)!=1) {
 				mapRef.setType(row+1, col);
 			}
 			
-			
-			
-			
-		
-		
 	}
 }
