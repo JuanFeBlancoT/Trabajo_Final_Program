@@ -13,214 +13,127 @@ public class Main extends PApplet{
 	final int WIDTH=1200;
 	final int HEIGHT=650;
 	final int ENEMIES=4;
-	//Atributes
 	
-	boolean moved=false;
-	boolean victory=false;
-	boolean alive=true;
-	boolean paintBomb=false;
-	boolean boom=false;
-	boolean gameOver=false;
-	boolean boomIncoming=false;
-	boolean hurt=false;
+	//atributes
+	int levelNum=1;
+	int coolDownMove=0;
+	int levelType=1;
 	
-	int enemiesAlive=4;
-	int boomC=0;
-	int timer=0;
-	int bombTimer=0;
-	int xB, yB;
-	int timeH=0;
-
-	int[] direct=new int[ENEMIES];
-
-	//imagenes
-	PImage desertE1Der;
-	
-	
-	//Relations
-	MapZone mainMap;
-	Player player1;
-	Enemy[] enemies;
+	boolean canMove=true;
+	//relations
+	Level[] levels;
 	
 	public void settings() {
 		size(WIDTH, HEIGHT);
 	}
 	
 	public void setup() {
-		//Images
-		//enemigo encapuchado desierto
-		desertE1Der = loadImage("anakin-01.png");
 		
+		levels=new Level[10];
 		
-		mainMap= new MapZone(0,0, this);
-		player1= new Player(0,0, mainMap);
-		enemies=new Enemy[ENEMIES];
+		levels[0]=new Level(1,this);
+		levels[1]=new Level(2,this);
+		levels[2]=new Level(3,this);
+		levels[3]=new Level(4,this);
+		levels[4]=new Level(5,this);
+		levels[5]=new Level(6,this);
+		levels[6]=new Level(7,this);
+		levels[7]=new Level(8,this);
+		levels[8]=new Level(9,this);
+		levels[9]=new Level(10,this);
+
 		
-		direct[0]=(int) random(1,4);
-		direct[1]=(int) random(1,4);
-		direct[2]=(int) random(1,4);
-		direct[3]=(int) random(1,4);
-		
-		enemies[0]=new Enemy(7,7, mainMap);
-		enemies[1]=new Enemy(10,4, mainMap);
-		enemies[2]=new Enemy(4,10, mainMap);
-		enemies[3]=new Enemy(4,2, mainMap);
+	
 	}
 
 	public void draw() {
 		background(60);
 		
 		rectMode(CENTER);
-	
-		mainMap.pintar(this);
-		player1.pintar(this);
-		noStroke();
-		fill(60);
-		rect(600,625,1200,50);
-		stroke(1);
-		timer++;
-		imageMode(CENTER);
-		image(desertE1Der,100,100,50,50);
-		for (int i = 0; i < enemies.length; i++) {
-			
-	
-			if(timer%80==0) {
-				direct[i]=(int) random(1,5);
-			}
-			
-			enemies[i].pintar(this);
-			//************************************************************************
-			//enemies[i].mover(direct[i]);
-			/*			
-			if( enemies[i].getVisible() && enemies[i].getX()==player1.getX() && enemies[i].getY()==player1.getY() ) {
-				
-					player1.reduceLife();
-					timeH++;
-				
-			}*/
-			
-		}
-		if(timeH%80==0 && gameOver==false) {
-			player1.setVulnerable(true);
-			timeH=0;
+		
+		switch(levelNum) {
+		
+		case 1:
+			levels[0].pintarNivel(this);
+			break;
+		case 2:
+			levels[1].pintarNivel(this);
+			break;
+		case 3:
+			levels[2].pintarNivel(this);
+			break;
+		case 4:
+			levels[3].pintarNivel(this);
+			break;
+		case 5:
+			levels[4].pintarNivel(this);
+			break;
+		case 6:
+			levels[5].pintarNivel(this);
+			break;
+		case 7:
+			levels[6].pintarNivel(this);
+			break;
+		case 8:
+			levels[7].pintarNivel(this);
+			break;
+		case 9:
+			levels[8].pintarNivel(this);
+			break;
+		case 10:
+			levels[9].pintarNivel(this);
+			break;
 		}
 		
-		/*if(hurt) {
-			player1.setLifes(player1.getLifes()-1);
-			hurt=false;
-		}*/
-	
-		
-		if(paintBomb && bombTimer<120) {
-			player1.mainBomb.pintar(this,xB, yB);
-			bombTimer++;
-			boomIncoming=true;
 			
-		}else {
-			bombTimer=0;
-			paintBomb=false;
-			boomIncoming=false;
-		}
-		if(bombTimer==120) {
-			player1.mainBomb.explote(xB, yB);
-			player1.confirmDamage(xB,yB);
-			for (int i = 0; i < enemies.length; i++) {
-				if(enemies[i].getVisible()==true) {
-					alive=enemies[i].checkExploded(xB, yB);
-					if(alive) {
-						alive=false;
-						enemiesAlive--;
-					}
-				}
-				
-			}
-		}
 		
-		if(player1.getLifes()<1) {
-			gameOver=true;
-		}
-		
-		if(boomIncoming) {
-			boomC++;
-			if(boomC%15==0) {
-				boom=!boom;
-			}
-			if(boom) {
-				fill(130,130,0,100);
-			}else {
-				fill(230,0,0,100);
-			}
-			
-			rect(75+yB*50, 75+xB*50, 150, 50);
-			rect(75+yB*50, 75+xB*50, 50, 150);
-			//boom=!boom;
-		}
-		
-		if(enemiesAlive==0) {
-			victory=true;
-		}
-		
-		if(gameOver) {
-			textSize(100);
-			rectMode(CENTER);
-			
-			fill(230,30,30);
-			rect(WIDTH/2,HEIGHT/2,600,200);
-			fill(100,0,0);
-			text("GAME OVER", 110,(HEIGHT/2)+40);
-		}else {
-			textSize(40);
-			rectMode(CENTER);
-			fill(255);
-			text("Enemies left: "+enemiesAlive, 500,40);
-		}
-		
-		if(victory){
-			textSize(100);
-			rectMode(CENTER);
-			
-			fill(30,230,30);
-			rect(WIDTH/2,HEIGHT/2,600,200);
-			fill(0,100,0);
-			text("VICTORY!", 165,(HEIGHT/2)+40);
-		}
 
 	}
 	
 	public void keyPressed() {
-	
+	for(int i=0;i<levels.length;i++) {
+		coolDownMove++;
+		System.out.println(coolDownMove);
+		System.out.println(canMove);
+		if(coolDownMove==10) {
+			coolDownMove=0;
+			canMove=true;
+		}
+		if(canMove) {
+			if(levels[i].getGameOver()==false && levels[i].getVictory()==false) {
+				
+					switch(key) {
+					case 'd':
+						levels[i].movePlayer(1);
 		
-	if(gameOver==false && victory==false) {
+						break;
+						
+					case 'a':
+						levels[i].movePlayer(2);
 		
-			switch(key) {
-			case 'd':
-				player1.mover(1);
-
-				break;
-				
-			case 'a':
-				player1.mover(2);
-
-				break;
-				
-			case 'w':
-				player1.mover(4);
-
-				break;
-				
-			case 's':
-				player1.mover(3);
-
-				break;
-			case 'b':
-				if(paintBomb==false) {
-					xB=player1.mainBomb.getRow();
-					yB=player1.mainBomb.getCol();
-					paintBomb=true;
-				}
-			
-				break;
-			}//end switch
-		}//end if
+						break;
+						
+					case 'w':
+						levels[i].movePlayer(4);
+		
+						break;
+						
+					case 's':
+						levels[i].movePlayer(3);
+		
+						break;
+					case 'b':
+						if(levels[i].getPaintBomb()==false) {
+							levels[i].setXb(levels[i].getPlayer().getBomb().getRow());
+							levels[i].setYb(levels[i].getPlayer().getBomb().getCol());
+							levels[i].setPaintBomb(true);
+						}
+					
+						break;
+					}//end switch
+					
+				}//end if levels
+			}//end if canMove
+		}//end for
 	}//end keyPressed
 } 

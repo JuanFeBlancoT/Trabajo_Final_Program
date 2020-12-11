@@ -165,4 +165,8 @@ public class Player {
 		}
 		
 	}
+
+	public Bomb getBomb() {
+		return mainBomb;
+	}
 }

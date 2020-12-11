@@ -70,6 +70,7 @@ public class MapZone {
 	}*/
 	
 	
+	
 	public int getTileType(int row, int col) {
 		int tType = -1;
 		if(row>0 || col>0 || row<TILE_H || col<TILE_W) {
