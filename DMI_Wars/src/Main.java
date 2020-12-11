@@ -2,6 +2,7 @@ import java.awt.Rectangle;
 import java.nio.file.WatchEvent;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 public class Main extends PApplet{
 	public static void main (String[] args) {
 		PApplet.main("Main");
@@ -13,21 +14,29 @@ public class Main extends PApplet{
 	final int HEIGHT=650;
 	final int ENEMIES=4;
 	//Atributes
+	
 	boolean moved=false;
 	boolean victory=false;
 	boolean alive=true;
-	int enemiesAlive=4;
 	boolean paintBomb=false;
 	boolean boom=false;
+	boolean gameOver=false;
+	boolean boomIncoming=false;
+	boolean hurt=false;
+	
+	int enemiesAlive=4;
 	int boomC=0;
 	int timer=0;
 	int bombTimer=0;
 	int xB, yB;
 	int timeH=0;
-	boolean gameOver=false;
-	boolean boomIncoming=false;
+
 	int[] direct=new int[ENEMIES];
-	boolean hurt=false;
+
+	//imagenes
+	PImage desertE1Der;
+	
+	
 	//Relations
 	MapZone mainMap;
 	Player player1;
@@ -38,6 +47,10 @@ public class Main extends PApplet{
 	}
 	
 	public void setup() {
+		//Images
+		//enemigo encapuchado desierto
+		desertE1Der = loadImage("anakin-01.png");
+		
 		
 		mainMap= new MapZone(0,0, this);
 		player1= new Player(0,0, mainMap);
@@ -58,7 +71,7 @@ public class Main extends PApplet{
 		background(60);
 		
 		rectMode(CENTER);
-		
+	
 		mainMap.pintar(this);
 		player1.pintar(this);
 		noStroke();
@@ -66,7 +79,8 @@ public class Main extends PApplet{
 		rect(600,625,1200,50);
 		stroke(1);
 		timer++;
-	
+		imageMode(CENTER);
+		image(desertE1Der,100,100,50,50);
 		for (int i = 0; i < enemies.length; i++) {
 			
 	
@@ -170,51 +184,38 @@ public class Main extends PApplet{
 			fill(0,100,0);
 			text("VICTORY!", 165,(HEIGHT/2)+40);
 		}
-		//System.out.println("row: "+player1.mainBomb.getRow()+ " , COL: "+ player1.mainBomb.getCol());
+
 	}
 	
 	public void keyPressed() {
-		//System.out.println(mainMap.getUpperType(mainMap.getUpperTile(mainMap.getPLayer().getX(), mainMap.getPLayer().getY())));
+	
 		
 	if(gameOver==false && victory==false) {
 		
 			switch(key) {
 			case 'd':
 				player1.mover(1);
-				/*if(mainMap.getPLayer().getX()<WIDTH-75) {
-					
-					mainMap.getPLayer().mover(1);
-				}*/
+
 				break;
 				
 			case 'a':
 				player1.mover(2);
-				/*if(mainMap.getPLayer().getX()>75) {
-					mainMap.getPLayer().mover(2);
-				}*/
-				
+
 				break;
 				
 			case 'w':
 				player1.mover(4);
-				/*if(mainMap.getPLayer().getY()>75) {
-					
-					mainMap.getPLayer().mover(4);
-				}*/
+
 				break;
 				
 			case 's':
 				player1.mover(3);
-				/*if(mainMap.getPLayer().getY()<HEIGHT-75) {
-					mainMap.getPLayer().mover(3);
-				}*/
+
 				break;
 			case 'b':
 				if(paintBomb==false) {
 					xB=player1.mainBomb.getRow();
 					yB=player1.mainBomb.getCol();
-					System.out.println(xB);
-					System.out.println(yB);
 					paintBomb=true;
 				}
 			

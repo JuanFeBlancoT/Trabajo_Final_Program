@@ -69,44 +69,6 @@ public class MapZone {
 		return player1;
 	}*/
 	
-	/*public Tile getUpperTile(int x, int y) {
-		Tile upperT=null;
-		
-		for (int i = 0; i < tileSet.length; i++) {
-			for (int j = 0; j < tileSet.length; j++) {
-				if(tileSet[i][j].getX()==x && tileSet[i][j].getY()==y) {
-					
-					if() {
-						
-					}
-						upperT=tileSet[i][j-1];
-					
-					
-				}
-			}
-		}
-		
-		return upperT;
-	}//end getUppperTile*/
-	
-	/*public int getUpperType(Tile actual) {
-		Tile upperT=null;
-		
-		for (int i = 0; i < tileSet.length; i++) {
-			for (int j = 0; j < tileSet.length; j++) {
-				if(tileSet[i][j]==actual) {
-					if(i>0) {
-						upperT=tileSet[i-1][j];
-					}
-						
-					
-					
-				}
-			}
-		}
-		
-		return upperT.getType()	;
-	}//end getUppperType*/
 	
 	public int getTileType(int row, int col) {
 		int tType = -1;
